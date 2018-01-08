@@ -1,0 +1,80 @@
+{
+  "name": "vertical-writing",
+  "displayName": "縦書きプレビュー",
+  "description": "テキストを縦書き表示する．",
+  "version": "0.0.1",
+  "publisher": "n-fukuju",
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/n-fukuju/vertical-writing-vsce"
+  },
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.19.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:extension.vertical"
+  ],
+  "main": "./out/extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.vertical",
+        "title": "縦書きプレビュー"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "extension.vertical",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "縦書きプレビュー設定",
+      "properties": {
+        "vertical.cursor": {
+          "type": "string",
+          "default": "|",
+          "description": "カーソル位置の区切り文字"
+        },
+        "vertical.cursor.position": {
+          "type": "string",
+          "default": "inner",
+          "description": "カーソル位置。right（先頭に固定）, center（中央に固定）, left（末尾に固定）, inner（画面内：既定）, none（無視）"
+        },
+        "vertical.preview.fontsize": {
+          "type": "string",
+          "default": "14px",
+          "description": "文字サイズ"
+        },
+        "vertical.preview.fontfamily": {
+          "type": "string",
+          "default": "",
+          "description": "フォント種類"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "npm run compile && node ./node_modules/vscode/bin/test",
+    "package": "vsce package",
+    "install": "code --install-extension ./vertical-writing-0.0.1.vsix"
+  },
+  "devDependencies": {
+    "@types/mocha": "^2.2.42",
+    "@types/node": "^7.0.43",
+    "typescript": "^2.6.1",
+    "vsce": "^1.35.0",
+    "vscode": "^1.1.6"
+  }
+}
