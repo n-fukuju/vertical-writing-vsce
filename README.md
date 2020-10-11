@@ -10,7 +10,9 @@
 ```
 縦書きプレビュー
 ```
-または、エディタを右クリックして、コンテキストメニューから同名の項目を選択します。
+または、エディタを右クリックして、コンテキストメニューから同名の項目を選択します。  
+![ss1](https://github.com/n-fukuju/vertical-writing-vsce/raw/master/images/ss1.png)  
+![ss2](https://github.com/n-fukuju/vertical-writing-vsce/raw/master/images/ss2.png)  
 
 ## 設定
 
