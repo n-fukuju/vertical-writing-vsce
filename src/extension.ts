@@ -14,21 +14,17 @@ export function activate(context: vscode.ExtensionContext)
     }));
     // エディタ側の変更時に、プレビューに反映
     vscode.workspace.onDidChangeTextDocument((e: vscode.TextDocumentChangeEvent)=>{
-        if(e.document == vscode.window.activeTextEditor?.document){ PreviewPanel.update(); }
+        if(e.document == vscode.window.activeTextEditor?.document)
+        { 
+            PreviewPanel.update(); 
+        }
     });
     vscode.window.onDidChangeTextEditorSelection((e: vscode.TextEditorSelectionChangeEvent)=>{
-        if(e.textEditor == vscode.window.activeTextEditor){ PreviewPanel.update(); }
+        if(e.textEditor == vscode.window.activeTextEditor)
+        { 
+            PreviewPanel.update(); 
+        }
     });
-    
-    // if(vscode.window.registerWebviewPanelSerializer)
-    // {
-    //     vscode.window.registerWebviewPanelSerializer(PreviewPanel.viewType, {
-    //         async deserializeWebviewPanel(webviewPanel: vscode.WebviewPanel, state: any){
-    //             console.log(`vertical-writing-vsce:: deserialize: state: ${state}`);
-    //             PreviewPanel.revive(webviewPanel, context.extensionUri, vscode.window.activeTextEditor);
-    //         }
-    //     });
-    // }
 }
 
 /** プレビューパネルのクラス */
@@ -44,7 +40,6 @@ class PreviewPanel{
     public static show(extensionUri: vscode.Uri)
     {
         const column = vscode.window.activeTextEditor
-            // ? vscode.window.activeTextEditor.viewColumn: undefined;
             ? vscode.ViewColumn.Two: undefined;
         const editor = vscode.window.activeTextEditor;
         
@@ -78,14 +73,16 @@ class PreviewPanel{
         // コンテンツの初期化
         this._update();
 
-
         // dispose
         this._panel.onDidDispose(()=> this.dispose(), null, this._disposables);
 
         // 変更
         this._panel.onDidChangeViewState(
             e => {
-                if(this._panel.visible){ this._update(); }
+                if(this._panel.visible)
+                { 
+                    this._update(); 
+                }
             },
             null, this._disposables
         );
@@ -93,7 +90,8 @@ class PreviewPanel{
         // webviewのメッセージを処理
         this._panel.webview.onDidReceiveMessage(
             message => {
-                switch(message.command){
+                switch(message.command)
+                {
                     case 'alert':
                         vscode.window.showErrorMessage(message.text);
                         return;
@@ -108,21 +106,26 @@ class PreviewPanel{
     {
         PreviewPanel.currentPanel = undefined;
         this._panel.dispose();
-        while(this._disposables.length){
+        while(this._disposables.length)
+        {
             const x = this._disposables.pop();
-            if(x){ x.dispose(); }
+            if(x)
+            {
+                x.dispose(); 
+            }
         }
     }
 
     public static update()
     {
-        if(this.currentPanel){ this.currentPanel._update(); }
+        if(this.currentPanel)
+        { 
+            this.currentPanel._update(); 
+        }
     }
 
     private _update()
     {
-        // const webview = this._panel.webview;
-        // this._panel.webview.html = this._getHtmlForWebview(webview)
         this._panel.title = "preview";
         
         // テキストを取得
@@ -197,7 +200,6 @@ class PreviewPanel{
                 setTimeout(Toggle, 500);
             }
             Toggle();
-
             
             window.onload = function(){
                 var cursor_position = '${position}';
@@ -205,7 +207,8 @@ class PreviewPanel{
                 var cursor = document.getElementById("cursor");
                 var rect = cursor.getBoundingClientRect();
                 // デバッグ用出力
-                if(false){
+                if(false)
+                {
                     console.log("*** debug ***");
                     // カーソル位置設定
                     console.log("pos: "+ cursor_position);
